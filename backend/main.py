@@ -16,7 +16,7 @@ app = FastAPI(
 # Allow requests from the React dev server
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -36,3 +36,20 @@ app.include_router(learning_path.router, prefix="/generate_learning_path", tags=
 @app.get("/")
 def root():
     return {"message": "AI Resume Analyzer API is running 🚀"}
+
+
+# ───────────────────────── KeepAlive ──────────────────────────────
+URL = "https://kcg-credits-back.onrender.com"  # Replace with your desired URL
+
+def request_url_every_minute():
+    while True:
+        try:
+            response = requests.get(URL)
+            print(f"keep_alive => Status Code: {response.status_code}")
+        except requests.exceptions.RequestException as e:
+            print(f"An error occurred: {e}")
+        time.sleep(60)
+
+def start_requesting():
+    t = threading.Thread(target=request_url_every_minute, daemon=True)
+    t.start()

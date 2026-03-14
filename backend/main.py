@@ -37,25 +37,3 @@ app.include_router(learning_path.router, prefix="/generate_learning_path", tags=
 def root():
     return {"message": "AI Resume Analyzer API is running 🚀"}
 
-
-# ───────────────────────── KeepAlive ──────────────────────────────
-URL = "https://kcg-credits-back.onrender.com"  # Replace with your desired URL
-
-def request_url_every_minute():
-    while True:
-        try:
-            response = requests.get(URL)
-            print(f"keep_alive => Status Code: {response.status_code}")
-        except requests.exceptions.RequestException as e:
-            print(f"An error occurred: {e}")
-        time.sleep(60)
-
-def start_requesting():
-    t = threading.Thread(target=request_url_every_minute, daemon=True)
-    t.start()
-
-
-# ───────────────────────── Start ───────────────────────────────
-if __name__ == "__main__":
-    start_requesting()
-    uvicorn.run(app, host="0.0.0.0", port=8080)

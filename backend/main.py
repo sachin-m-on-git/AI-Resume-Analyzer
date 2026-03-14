@@ -53,3 +53,9 @@ def request_url_every_minute():
 def start_requesting():
     t = threading.Thread(target=request_url_every_minute, daemon=True)
     t.start()
+
+
+# ───────────────────────── Start ───────────────────────────────
+if __name__ == "__main__":
+    start_requesting()
+    uvicorn.run(app, host="0.0.0.0", port=8080)

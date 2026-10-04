@@ -46,3 +46,8 @@ Thumbs.db
 /tmp/resume_uploads/
 backend/temp/
 backend/uploads/
+
+# Auto-added safety rules
+*.pem
+*.session
+*.session-journal
